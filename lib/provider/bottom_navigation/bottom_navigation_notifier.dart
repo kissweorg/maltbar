@@ -7,7 +7,6 @@ class BottomNavigationNotifier extends StateNotifier<BottomNavigationState> {
   BottomNavigationNotifier({required this.read, required state}) : super(state);
 
   void switchTab(int index) {
-    state = BottomNavigationState.switched(
-        BottomNavigationExtension.getByIndex(index));
+    state = BottomNavigationState.switched(BottomNavigation.values[index]);
   }
 }

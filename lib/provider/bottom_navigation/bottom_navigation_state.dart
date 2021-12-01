@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:maltbar/screen/camera_view.dart';
+import 'package:maltbar/screen/map_view.dart';
 import 'package:maltbar/screen/posts_view.dart';
 import 'package:maltbar/screen/profile_view.dart';
 import 'package:maltbar/screen/search_view.dart';
@@ -20,9 +21,6 @@ class BottomNavigationState with _$BottomNavigationState {
 enum BottomNavigation { posts, search, camera, map, profile }
 
 extension BottomNavigationExtension on BottomNavigation {
-  static BottomNavigation getByIndex(int index) =>
-      BottomNavigation.values[index];
-
   String get name => describeEnum(this);
 
   Widget get appView {
@@ -34,7 +32,7 @@ extension BottomNavigationExtension on BottomNavigation {
       case BottomNavigation.search:
         return SearchView();
       case BottomNavigation.map:
-        return ProfileView();
+        return MapView();
       case BottomNavigation.profile:
         return ProfileView();
     }
