@@ -7,36 +7,44 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: ref.watch(bottomNavigationProvider).when(
-            switching: (from, to) => from.appBar,
-            switched: (current) => current.appBar),
-        body: ref.watch(bottomNavigationProvider).when(
-            switching: (from, to) => Center(
-                  child: CircularProgressIndicator.adaptive(),
-                ),
-            switched: (current) => current.appView),
-        bottomNavigationBar: BottomNavigationBar(
-          // backgroundColor: Colors.amber,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          currentIndex: ref.watch(bottomNavigationProvider).when(
-                switching: (from, to) => to.index,
-                switched: (current) => current.index,
-              ),
-          onTap: ref.read(bottomNavigationProvider.notifier).switchTab,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: "목록"),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "찾기"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.add_circle_outline), label: "추가"),
-            BottomNavigationBarItem(icon: Icon(Icons.map_rounded), label: "지도"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "프로필"),
-          ],
-        ),
-      ),
       debugShowCheckedModeBanner: false,
+      home: ref.watch(authProvider).when(unauthenticated: () {
+        return Scaffold(
+          body: Center(
+            child: Text("Authentication required"),
+          ),
+        );
+      }, fetching: () {
+        return Center(
+          child: CircularProgressIndicator.adaptive(),
+        );
+      }, authenticated: (token) {
+        return Scaffold(
+          appBar: ref.watch(bottomNavigationProvider).when(
+              switching: (from, to) => from.appBar,
+              switched: (current) => current.appBar),
+          body: ref.watch(bottomNavigationProvider).when(
+              switching: (from, to) => Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  ),
+              switched: (current) => current.appView),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            currentIndex: ref.watch(bottomNavigationProvider).when(
+                  switching: (from, to) => to.index,
+                  switched: (current) => current.index,
+                ),
+            onTap: ref.read(bottomNavigationProvider.notifier).switchTab,
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.list), label: "목록"),
+              BottomNavigationBarItem(icon: Icon(Icons.search), label: "찾기"),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: "프로필"),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
