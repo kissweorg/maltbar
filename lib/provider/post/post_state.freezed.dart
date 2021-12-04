@@ -27,8 +27,10 @@ class _$PostStateTearOff {
     );
   }
 
-  _PostStateSelected selected() {
-    return const _PostStateSelected();
+  _PostStateSelected selected(Post post) {
+    return _PostStateSelected(
+      post,
+    );
   }
 
   _PostStateRefreshed refreshed() {
@@ -49,7 +51,7 @@ mixin _$PostState {
   TResult when<TResult extends Object?>({
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
-    required TResult Function() selected,
+    required TResult Function(Post post) selected,
     required TResult Function() refreshed,
     required TResult Function() error,
   }) =>
@@ -58,7 +60,7 @@ mixin _$PostState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
   }) =>
@@ -67,7 +69,7 @@ mixin _$PostState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
     required TResult orElse(),
@@ -161,7 +163,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   TResult when<TResult extends Object?>({
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
-    required TResult Function() selected,
+    required TResult Function(Post post) selected,
     required TResult Function() refreshed,
     required TResult Function() error,
   }) {
@@ -173,7 +175,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
   }) {
@@ -185,7 +187,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
     required TResult orElse(),
@@ -308,7 +310,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   TResult when<TResult extends Object?>({
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
-    required TResult Function() selected,
+    required TResult Function(Post post) selected,
     required TResult Function() refreshed,
     required TResult Function() error,
   }) {
@@ -320,7 +322,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
   }) {
@@ -332,7 +334,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
     required TResult orElse(),
@@ -398,6 +400,7 @@ abstract class _$PostStateSelectedCopyWith<$Res> {
   factory _$PostStateSelectedCopyWith(
           _PostStateSelected value, $Res Function(_PostStateSelected) then) =
       __$PostStateSelectedCopyWithImpl<$Res>;
+  $Res call({Post post});
 }
 
 /// @nodoc
@@ -410,37 +413,59 @@ class __$PostStateSelectedCopyWithImpl<$Res>
 
   @override
   _PostStateSelected get _value => super._value as _PostStateSelected;
+
+  @override
+  $Res call({
+    Object? post = freezed,
+  }) {
+    return _then(_PostStateSelected(
+      post == freezed
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as Post,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_PostStateSelected implements _PostStateSelected {
-  const _$_PostStateSelected();
+  const _$_PostStateSelected(this.post);
+
+  @override
+  final Post post;
 
   @override
   String toString() {
-    return 'PostState.selected()';
+    return 'PostState.selected(post: $post)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _PostStateSelected);
+        (other.runtimeType == runtimeType &&
+            other is _PostStateSelected &&
+            (identical(other.post, post) || other.post == post));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, post);
+
+  @JsonKey(ignore: true)
+  @override
+  _$PostStateSelectedCopyWith<_PostStateSelected> get copyWith =>
+      __$PostStateSelectedCopyWithImpl<_PostStateSelected>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
-    required TResult Function() selected,
+    required TResult Function(Post post) selected,
     required TResult Function() refreshed,
     required TResult Function() error,
   }) {
-    return selected();
+    return selected(post);
   }
 
   @override
@@ -448,11 +473,11 @@ class _$_PostStateSelected implements _PostStateSelected {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
   }) {
-    return selected?.call();
+    return selected?.call(post);
   }
 
   @override
@@ -460,13 +485,13 @@ class _$_PostStateSelected implements _PostStateSelected {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
     required TResult orElse(),
   }) {
     if (selected != null) {
-      return selected();
+      return selected(post);
     }
     return orElse();
   }
@@ -513,7 +538,12 @@ class _$_PostStateSelected implements _PostStateSelected {
 }
 
 abstract class _PostStateSelected implements PostState {
-  const factory _PostStateSelected() = _$_PostStateSelected;
+  const factory _PostStateSelected(Post post) = _$_PostStateSelected;
+
+  Post get post;
+  @JsonKey(ignore: true)
+  _$PostStateSelectedCopyWith<_PostStateSelected> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -559,7 +589,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   TResult when<TResult extends Object?>({
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
-    required TResult Function() selected,
+    required TResult Function(Post post) selected,
     required TResult Function() refreshed,
     required TResult Function() error,
   }) {
@@ -571,7 +601,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
   }) {
@@ -583,7 +613,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
     required TResult orElse(),
@@ -681,7 +711,7 @@ class _$_PostStateError implements _PostStateError {
   TResult when<TResult extends Object?>({
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
-    required TResult Function() selected,
+    required TResult Function(Post post) selected,
     required TResult Function() refreshed,
     required TResult Function() error,
   }) {
@@ -693,7 +723,7 @@ class _$_PostStateError implements _PostStateError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
   }) {
@@ -705,7 +735,7 @@ class _$_PostStateError implements _PostStateError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
-    TResult Function()? selected,
+    TResult Function(Post post)? selected,
     TResult Function()? refreshed,
     TResult Function()? error,
     required TResult orElse(),

@@ -1,23 +1,29 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:maltbar/provider/providers.dart';
 
 class AuthInterceptor extends Interceptor {
+  final Reader read;
+
+  AuthInterceptor(this.read);
+
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print('REQUEST[${options.method}] => PATH: ${options.path}');
-    return super.onRequest(options, handler);
+    read(authProvider).maybeWhen(authenticated: (token) {
+      options.headers["Authorization"] = "Bearer $token";
+      return super.onRequest(options, handler);
+    }, orElse: () {
+      return super.onRequest(options, handler);
+    });
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    print(
-        'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
     return super.onResponse(response, handler);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    print(
-        'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
     return super.onError(err, handler);
   }
 }
