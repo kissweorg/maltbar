@@ -18,7 +18,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> getToken() async {
     state = AuthState.fetching();
     try {
-      final response = await client.post("");
+      final response = await client.post("", data: {"id": 1});
       print(response.data);
       state = AuthState.authenticated(response.data["accessToken"]);
     } catch (e) {

@@ -9,6 +9,7 @@ class PostNotifier extends StateNotifier<PostState> {
     fetchPosts();
   }
 
+  // TODO: Cache posts
   Future<void> fetchPosts() async {
     state = PostState.fetching();
     try {

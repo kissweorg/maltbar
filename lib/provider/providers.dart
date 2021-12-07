@@ -20,8 +20,8 @@ final apiClientProvider = Provider<Dio>((ref) {
     receiveTimeout: 10000,
   ));
   dio.interceptors.addAll([
-    AuthInterceptor(ref.read),
-    LogInterceptor(),
+    AuthInterceptor(dio: dio, read: ref.read),
+    LogInterceptor(responseBody: true),
   ]);
   return dio;
 });

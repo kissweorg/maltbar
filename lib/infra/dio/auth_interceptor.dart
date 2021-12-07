@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:maltbar/provider/providers.dart';
 
 class AuthInterceptor extends Interceptor {
+  final Dio dio;
   final Reader read;
 
-  AuthInterceptor(this.read);
+  AuthInterceptor({required this.read, required this.dio});
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -18,7 +21,14 @@ class AuthInterceptor extends Interceptor {
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
+  Future<void> onResponse(
+      Response response, ResponseInterceptorHandler handler) async {
+    if (response.statusCode == HttpStatus.unauthorized) {
+      dio.lock();
+      await read(authProvider.notifier).getToken();
+      dio.unlock();
+    }
+
     return super.onResponse(response, handler);
   }
 

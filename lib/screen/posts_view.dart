@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:maltbar/provider/providers.dart';
@@ -9,32 +7,37 @@ class PostsView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(postProvider).maybeWhen(fetched: (posts) {
       return ListView.separated(
-        padding: EdgeInsets.all(10.0),
+        // padding: EdgeInsets.all(10.0),
         itemBuilder: (context, index) {
           final post = posts[index];
           return GestureDetector(
-            onTap: () => print(jsonEncode(post)),
-            child: Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                    leading: post.thumbnailUrl != null
-                        ? Image.network(post.thumbnailUrl!)
-                        : null,
-                    title: Text(post.topic),
-                    subtitle: Text(post.content),
+            onTap: () => print(post.toJson()),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  title: Text(post.topic),
+                  trailing: IconButton(
+                    icon: Icon(Icons.star_outline),
+                    onPressed: () {
+                      print(post.toJson());
+                    },
                   ),
-                  ButtonBar(
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.star_outline),
-                        onPressed: () {},
-                      ),
-                    ],
+                ),
+                post.imageUrl != null
+                    ? Image.network(post.imageUrl!)
+                    : Container(),
+                ListTile(
+                  title: Text(
+                    post.user.nickname,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ],
-              ),
+                  subtitle: Text(post.content),
+                ),
+              ],
             ),
           );
         },
