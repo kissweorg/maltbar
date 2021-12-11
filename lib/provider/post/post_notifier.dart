@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:maltbar/models/post.dart';
+import 'package:maltbar/provider/post/post_domain.dart';
 import 'package:maltbar/provider/post/post_state.dart';
 import 'package:maltbar/provider/providers.dart';
 
@@ -22,5 +23,17 @@ class PostNotifier extends StateNotifier<PostState> {
       print(e);
       state = PostState.error();
     }
+  }
+
+  Future<void> createPost(CreatePostDto createPostDto) async {
+    state = PostState.fetching();
+    try {
+      await read(apiClientProvider)
+          .post("/v1/posts", data: createPostDto.toJson());
+    } catch (e) {
+      print(e);
+      state = PostState.error();
+    }
+    await fetchPosts();
   }
 }

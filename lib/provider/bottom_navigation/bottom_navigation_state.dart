@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -25,11 +26,10 @@ enum BottomNavigation {
 extension BottomNavigationExtension on BottomNavigation {
   String get name => describeEnum(this);
 
-  Widget get appView {
+  Widget appView(BuildContext context) {
     switch (this) {
       case BottomNavigation.posts:
         return PostsView();
-
       case BottomNavigation.search:
         return SearchView();
       case BottomNavigation.profile:
@@ -37,14 +37,16 @@ extension BottomNavigationExtension on BottomNavigation {
     }
   }
 
-  AppBar get appBar {
+  AppBar appBar(BuildContext context) {
     switch (this) {
       case BottomNavigation.posts:
         return AppBar(
           title: Text("posts"),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Beamer.of(context).beamToNamed("/create-post");
+              },
               icon: Icon(Icons.add_circle),
             ),
           ],

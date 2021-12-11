@@ -12,8 +12,8 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    read(authProvider).maybeWhen(authenticated: (token) {
-      options.headers["Authorization"] = "Bearer $token";
+    read(authProvider).maybeWhen(authenticated: (me) {
+      options.headers["Authorization"] = "Bearer ${me.token}";
       return super.onRequest(options, handler);
     }, orElse: () {
       return super.onRequest(options, handler);

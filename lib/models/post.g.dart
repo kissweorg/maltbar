@@ -7,24 +7,25 @@ part of 'post.dart';
 // **************************************************************************
 
 Post _$PostFromJson(Map<String, dynamic> json) => Post(
-      json['id'] as int,
-      json['userId'] as int,
-      json['topic'] as String,
-      json['content'] as String,
-      json['thumbnailUrl'] as String?,
-      json['imageUrl'] as String?,
-      json['createdAt'] == null
+      id: json['id'] as int,
+      topic: json['topic'] as String,
+      content: json['content'] as String,
+      thumbnailUrl: json['thumbnailUrl'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
-      json['updatedAt'] == null
+      updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
-      PostUser.fromJson(json['user'] as Map<String, dynamic>),
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      comments: (json['comments'] as List<dynamic>)
+          .map((e) => Comment.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'id': instance.id,
-      'userId': instance.userId,
       'topic': instance.topic,
       'content': instance.content,
       'thumbnailUrl': instance.thumbnailUrl,
@@ -32,6 +33,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'user': instance.user,
+      'comments': instance.comments,
     };
 
 PostUser _$PostUserFromJson(Map<String, dynamic> json) => PostUser(
@@ -42,4 +44,26 @@ PostUser _$PostUserFromJson(Map<String, dynamic> json) => PostUser(
 Map<String, dynamic> _$PostUserToJson(PostUser instance) => <String, dynamic>{
       'id': instance.id,
       'nickname': instance.nickname,
+    };
+
+User _$UserFromJson(Map<String, dynamic> json) => User(
+      id: json['id'] as int,
+      nickname: json['nickname'] as String,
+    );
+
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'id': instance.id,
+      'nickname': instance.nickname,
+    };
+
+Comment _$CommentFromJson(Map<String, dynamic> json) => Comment(
+      id: json['id'] as int,
+      content: json['content'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+    );
+
+Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
+      'id': instance.id,
+      'content': instance.content,
+      'createdAt': instance.createdAt.toIso8601String(),
     };

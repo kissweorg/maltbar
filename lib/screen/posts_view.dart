@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:maltbar/models/post.dart';
 import 'package:maltbar/provider/providers.dart';
 
 class PostsView extends ConsumerWidget {
@@ -37,6 +38,7 @@ class PostsView extends ConsumerWidget {
                   ),
                   subtitle: Text(post.content),
                 ),
+                ..._buildComments(post.comments),
               ],
             ),
           );
@@ -47,5 +49,14 @@ class PostsView extends ConsumerWidget {
     }, orElse: () {
       return Center(child: CircularProgressIndicator.adaptive());
     });
+  }
+
+  _buildComments(List<Comment> comments) {
+    return comments.map(
+      (Comment comment) => Text(
+        comment.content,
+        key: ValueKey(comment.id),
+      ),
+    );
   }
 }

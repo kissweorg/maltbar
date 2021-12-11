@@ -5,17 +5,26 @@ part 'post.g.dart';
 @JsonSerializable()
 class Post {
   final int id;
-  final int userId;
   final String topic;
   final String content;
   final String? thumbnailUrl;
   final String? imageUrl;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final PostUser user;
+  final User user;
+  final List<Comment> comments;
 
-  Post(this.id, this.userId, this.topic, this.content, this.thumbnailUrl,
-      this.imageUrl, this.createdAt, this.updatedAt, this.user);
+  Post({
+    required this.id,
+    required this.topic,
+    required this.content,
+    required this.thumbnailUrl,
+    required this.imageUrl,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.user,
+    required this.comments,
+  });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
   Map<String, dynamic> toJson() => _$PostToJson(this);
@@ -31,4 +40,35 @@ class PostUser {
   factory PostUser.fromJson(Map<String, dynamic> json) =>
       _$PostUserFromJson(json);
   Map<String, dynamic> toJson() => _$PostUserToJson(this);
+}
+
+@JsonSerializable()
+class User {
+  final int id;
+  final String nickname;
+
+  User({
+    required this.id,
+    required this.nickname,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  Map<String, dynamic> toJson() => _$UserToJson(this);
+}
+
+@JsonSerializable()
+class Comment {
+  final int id;
+  final String content;
+  final DateTime createdAt;
+
+  Comment({
+    required this.id,
+    required this.content,
+    required this.createdAt,
+  });
+
+  factory Comment.fromJson(Map<String, dynamic> json) =>
+      _$CommentFromJson(json);
+  Map<String, dynamic> toJson() => _$CommentToJson(this);
 }
