@@ -12,55 +12,51 @@ class _MainScreenState extends ConsumerState {
   @override
   void initState() {
     super.initState();
-    // ref.read(authProvider.notifier).refreshToken();
-    // ref.read(authProvider.notifier).getToken();
   }
 
   @override
   Widget build(BuildContext context) {
     return ref.watch(authProvider).maybeWhen(
-      profileFetched: (token, me) {
-        return Scaffold(
-          appBar: ref.watch(bottomNavigationProvider).when(
-                switching: (from, to) => from.appBar(context),
-                switched: (current) => current.appBar(context),
-              ),
-          body: ref.watch(bottomNavigationProvider).when(
-              switching: (from, to) => Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-              switched: (current) => current.appView(context)),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            currentIndex: ref.watch(bottomNavigationProvider).when(
-                  switching: (from, to) => to.index,
-                  switched: (current) => current.index,
+          authenticated: (me) => Scaffold(
+            appBar: ref.watch(bottomNavigationProvider).when(
+                  switching: (from, to) => from.appBar(context),
+                  switched: (current) => current.appBar(context),
                 ),
-            onTap: ref.read(bottomNavigationProvider.notifier).switchTab,
-            items: [
-              BottomNavigationBarItem(icon: Icon(Icons.list), label: "목록"),
-              BottomNavigationBarItem(icon: Icon(Icons.search), label: "찾기"),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: "프로필"),
-            ],
+            body: ref.watch(bottomNavigationProvider).when(
+                switching: (from, to) => Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
+                switched: (current) => current.appView(context)),
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              currentIndex: ref.watch(bottomNavigationProvider).when(
+                    switching: (from, to) => to.index,
+                    switched: (current) => current.index,
+                  ),
+              onTap: ref.read(bottomNavigationProvider.notifier).switchTab,
+              items: [
+                BottomNavigationBarItem(icon: Icon(Icons.list), label: "목록"),
+                BottomNavigationBarItem(icon: Icon(Icons.search), label: "찾기"),
+                BottomNavigationBarItem(icon: Icon(Icons.person), label: "프로필"),
+              ],
+            ),
           ),
+          orElse: () {
+            return Scaffold(
+              body: Center(
+                child: Text("Authentication required"),
+              ),
+            );
+          },
+          fetching: () {
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+            );
+          },
         );
-      },
-      orElse: () {
-        return Scaffold(
-          body: Center(
-            child: Text("Authentication required"),
-          ),
-        );
-      },
-      fetching: () {
-        return Scaffold(
-          body: Center(
-            child: CircularProgressIndicator.adaptive(),
-          ),
-        );
-      },
-    );
   }
 }

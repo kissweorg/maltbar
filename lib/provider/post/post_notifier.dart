@@ -6,9 +6,7 @@ import 'package:kisswe/provider/providers.dart';
 
 class PostNotifier extends StateNotifier<PostState> {
   final Reader read;
-  PostNotifier({required this.read, required state}) : super(state) {
-    fetchPosts();
-  }
+  PostNotifier({required this.read, required state}) : super(state);
 
   // TODO: Cache posts
   Future<void> fetchPosts() async {
@@ -34,6 +32,5 @@ class PostNotifier extends StateNotifier<PostState> {
       print(e);
       state = PostState.error();
     }
-    await fetchPosts();
   }
 }

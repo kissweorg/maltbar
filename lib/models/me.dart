@@ -9,6 +9,7 @@ class Me {
   final String email;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final String accessToken;
 
   Me({
     required this.id,
@@ -16,6 +17,7 @@ class Me {
     required this.nickname,
     required this.createdAt,
     required this.updatedAt,
+    required this.accessToken,
   });
 
   factory Me.fromJson(Map<String, dynamic> json) => _$MeFromJson(json);

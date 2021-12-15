@@ -12,6 +12,7 @@ Me _$MeFromJson(Map<String, dynamic> json) => Me(
       nickname: json['nickname'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
+      accessToken: json['accessToken'] as String,
     );
 
 Map<String, dynamic> _$MeToJson(Me instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$MeToJson(Me instance) => <String, dynamic>{
       'email': instance.email,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),
+      'accessToken': instance.accessToken,
     };

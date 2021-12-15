@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kisswe/provider/providers.dart';
 
-class AuthInterceptor extends Interceptor {
+class AuthInterceptor extends QueuedInterceptor {
   final Dio dio;
   final Reader read;
 
@@ -13,10 +13,8 @@ class AuthInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     read(authProvider).maybeWhen(
-        authenticated: (token) =>
-            options.headers["Authorization"] = "Bearer $token",
-        profileFetched: (token, me) =>
-            options.headers["Authorization"] = "Bearer $token",
+        authenticated: (me) =>
+            options.headers["Authorization"] = "Bearer ${me.accessToken}",
         orElse: () {});
     return super.onRequest(options, handler);
   }
@@ -24,17 +22,29 @@ class AuthInterceptor extends Interceptor {
   @override
   Future<void> onResponse(
       Response response, ResponseInterceptorHandler handler) async {
-    if (response.statusCode == HttpStatus.unauthorized) {
-      dio.lock();
-      await read(authProvider.notifier).refreshToken();
-      dio.unlock();
-    }
-
     return super.onResponse(response, handler);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    return super.onError(err, handler);
+    if (err.response?.statusCode == HttpStatus.unauthorized) {
+      print("Session has expired trying refresh token...");
+      read(authProvider.notifier).refreshToken().then(
+          (value) => read(authProvider).maybeWhen(authenticated: (me) async {
+                print("Session has been restored re-trying with new token...");
+                err.requestOptions.headers["Authorization"] = me.accessToken;
+                final options = new Options(
+                    method: err.requestOptions.method,
+                    headers: err.requestOptions.headers);
+                final cloneReq = await dio.request(err.requestOptions.path,
+                    options: options,
+                    data: err.requestOptions.data,
+                    queryParameters: err.requestOptions.queryParameters);
+                return handler.resolve(cloneReq);
+              }, orElse: () {
+                print("Failed to restore session...");
+                return super.onError(err, handler);
+              }));
+    }
   }
 }
