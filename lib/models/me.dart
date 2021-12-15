@@ -6,9 +6,17 @@ part 'me.g.dart';
 class Me {
   final int id;
   final String nickname;
-  final String token;
+  final String email;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  Me({required this.id, required this.nickname, required this.token});
+  Me({
+    required this.id,
+    required this.email,
+    required this.nickname,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
   factory Me.fromJson(Map<String, dynamic> json) => _$MeFromJson(json);
   Map<String, dynamic> toJson() => _$MeToJson(this);

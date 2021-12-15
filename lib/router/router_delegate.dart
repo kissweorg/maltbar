@@ -1,12 +1,15 @@
 import 'package:beamer/beamer.dart';
-import 'package:maltbar/screen/create_post_screen.dart';
-import 'package:maltbar/screen/main_screen.dart';
+import 'package:kisswe/screen/create_post_screen.dart';
+import 'package:kisswe/screen/auth_screen.dart';
+import 'package:kisswe/screen/main_screen.dart';
 
 final routerDelegate = BeamerDelegate(
+  initialPath: "/auth",
   locationBuilder: RoutesLocationBuilder(
     routes: {
-      "/": (context, state, data) => MainScreen(),
-      "/create-post": (context, state, data) => CreatePostScreen(),
+      "/auth": (context, state, data) => AuthScreen(),
+      "/main": (context, state, data) => MainScreen(),
+      "/main/create-post": (context, state, data) => CreatePostScreen(),
     },
   ),
 );

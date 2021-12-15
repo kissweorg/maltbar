@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:maltbar/models/post.dart';
-import 'package:maltbar/provider/providers.dart';
+import 'package:kisswe/models/post.dart';
+import 'package:kisswe/provider/providers.dart';
 
 class PostsView extends ConsumerWidget {
   @override

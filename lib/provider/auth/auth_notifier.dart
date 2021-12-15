@@ -1,40 +1,60 @@
-import 'dart:convert';
-
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:maltbar/models/me.dart';
-import 'package:maltbar/provider/auth/auth_state.dart';
+import 'package:kakao_flutter_sdk/all.dart';
+import 'package:kisswe/main.dart';
+import 'package:kisswe/models/me.dart';
+import 'package:kisswe/provider/auth/auth_state.dart';
+import 'package:kisswe/provider/providers.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final Reader read;
-  final Dio client = Dio(BaseOptions(
+  final Dio _authClient = Dio(BaseOptions(
     baseUrl: "http://localhost:8080/api/v1/auth",
     connectTimeout: 10000,
     receiveTimeout: 10000,
-  ));
+  ))
+    ..interceptors.addAll([
+      LogInterceptor(responseBody: true),
+      CookieManager(cookieJar!),
+    ]);
 
   AuthNotifier({required this.read}) : super(AuthState.unauthenticated()) {
-    getToken();
+    KakaoContext.clientId = '66e1a2ba1debe8a2f753f8a4767660a5';
   }
 
-  // TODO: Write authentication
-  Future<void> getToken() async {
+  Future<void> loginWithKakao() async {
     state = AuthState.fetching();
     try {
-      final response = await client.post("", data: {"id": 1});
-      final String accessToken = response.data['accessToken'];
-      print(accessToken);
-      String body = accessToken.split(".")[1];
-      if (body.length % 4 != 0) {
-        body += '=' * (4 - body.length % 4);
-      }
-      final jsonMe = jsonDecode(String.fromCharCodes(base64.decode(body)));
-      final id = int.parse(jsonMe['sub']);
-      final nickname = jsonMe['nick'];
-      final me = Me(id: id, nickname: nickname, token: accessToken);
-      print(me.toJson());
+      final installed = await isKakaoTalkInstalled();
+      final authCode = installed
+          ? await AuthCodeClient.instance.requestWithTalk()
+          : await AuthCodeClient.instance.request();
+      var response =
+          await _authClient.post("/kakao", data: {"auth_code": authCode});
+      final accessToken = response.data['access_token'];
+      state = AuthState.authenticated(accessToken);
 
-      state = AuthState.authenticated(me);
+      var profileResponse = await read(apiClientProvider).get("/v1/profile");
+      state = AuthState.profileFetched(
+          accessToken, Me.fromJson(profileResponse.data));
+    } catch (e) {
+      print(e);
+      state = AuthState.unauthenticated();
+    }
+  }
+
+  Future<void> refreshToken() async {
+    state = AuthState.fetching();
+    try {
+      final response = await _authClient.get("/refresh");
+      final accessToken = response.data['access_token'];
+      state = AuthState.authenticated(accessToken);
+
+      var profileResponse = await read(apiClientProvider).get("/v1/profile");
+      state = AuthState.profileFetched(
+          accessToken, Me.fromJson(profileResponse.data));
     } catch (e) {
       print(e);
       state = AuthState.unauthenticated();

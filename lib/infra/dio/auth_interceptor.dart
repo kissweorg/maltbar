@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:maltbar/provider/providers.dart';
+import 'package:kisswe/provider/providers.dart';
 
 class AuthInterceptor extends Interceptor {
   final Dio dio;
@@ -12,12 +12,13 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    read(authProvider).maybeWhen(authenticated: (me) {
-      options.headers["Authorization"] = "Bearer ${me.token}";
-      return super.onRequest(options, handler);
-    }, orElse: () {
-      return super.onRequest(options, handler);
-    });
+    read(authProvider).maybeWhen(
+        authenticated: (token) =>
+            options.headers["Authorization"] = "Bearer $token",
+        profileFetched: (token, me) =>
+            options.headers["Authorization"] = "Bearer $token",
+        orElse: () {});
+    return super.onRequest(options, handler);
   }
 
   @override
@@ -25,7 +26,7 @@ class AuthInterceptor extends Interceptor {
       Response response, ResponseInterceptorHandler handler) async {
     if (response.statusCode == HttpStatus.unauthorized) {
       dio.lock();
-      await read(authProvider.notifier).getToken();
+      await read(authProvider.notifier).refreshToken();
       dio.unlock();
     }
 

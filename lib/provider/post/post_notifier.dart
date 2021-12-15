@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:maltbar/models/post.dart';
-import 'package:maltbar/provider/post/post_domain.dart';
-import 'package:maltbar/provider/post/post_state.dart';
-import 'package:maltbar/provider/providers.dart';
+import 'package:kisswe/models/post.dart';
+import 'package:kisswe/provider/post/post_domain.dart';
+import 'package:kisswe/provider/post/post_state.dart';
+import 'package:kisswe/provider/providers.dart';
 
 class PostNotifier extends StateNotifier<PostState> {
   final Reader read;

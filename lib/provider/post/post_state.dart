@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:maltbar/models/post.dart';
+import 'package:kisswe/models/post.dart';
 
 part 'post_state.freezed.dart';
 

@@ -25,9 +25,16 @@ class _$AuthStateTearOff {
     return const _AuthStateFetching();
   }
 
-  _AuthStateAuthenticated authenticated(Me token) {
+  _AuthStateAuthenticated authenticated(String token) {
     return _AuthStateAuthenticated(
       token,
+    );
+  }
+
+  _AuthStateProfileFetched profileFetched(String token, Me me) {
+    return _AuthStateProfileFetched(
+      token,
+      me,
     );
   }
 }
@@ -41,21 +48,24 @@ mixin _$AuthState {
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() fetching,
-    required TResult Function(Me token) authenticated,
+    required TResult Function(String token) authenticated,
+    required TResult Function(String token, Me me) profileFetched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? fetching,
-    TResult Function(Me token)? authenticated,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? fetching,
-    TResult Function(Me token)? authenticated,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,6 +74,7 @@ mixin _$AuthState {
     required TResult Function(_AuthStateUnauthenticated value) unauthenticated,
     required TResult Function(_AuthStateFetching value) fetching,
     required TResult Function(_AuthStateAuthenticated value) authenticated,
+    required TResult Function(_AuthStateProfileFetched value) profileFetched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -71,6 +82,7 @@ mixin _$AuthState {
     TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
     TResult Function(_AuthStateFetching value)? fetching,
     TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,6 +90,7 @@ mixin _$AuthState {
     TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
     TResult Function(_AuthStateFetching value)? fetching,
     TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -143,7 +156,8 @@ class _$_AuthStateUnauthenticated implements _AuthStateUnauthenticated {
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() fetching,
-    required TResult Function(Me token) authenticated,
+    required TResult Function(String token) authenticated,
+    required TResult Function(String token, Me me) profileFetched,
   }) {
     return unauthenticated();
   }
@@ -153,7 +167,8 @@ class _$_AuthStateUnauthenticated implements _AuthStateUnauthenticated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? fetching,
-    TResult Function(Me token)? authenticated,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
   }) {
     return unauthenticated?.call();
   }
@@ -163,7 +178,8 @@ class _$_AuthStateUnauthenticated implements _AuthStateUnauthenticated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? fetching,
-    TResult Function(Me token)? authenticated,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -178,6 +194,7 @@ class _$_AuthStateUnauthenticated implements _AuthStateUnauthenticated {
     required TResult Function(_AuthStateUnauthenticated value) unauthenticated,
     required TResult Function(_AuthStateFetching value) fetching,
     required TResult Function(_AuthStateAuthenticated value) authenticated,
+    required TResult Function(_AuthStateProfileFetched value) profileFetched,
   }) {
     return unauthenticated(this);
   }
@@ -188,6 +205,7 @@ class _$_AuthStateUnauthenticated implements _AuthStateUnauthenticated {
     TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
     TResult Function(_AuthStateFetching value)? fetching,
     TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
   }) {
     return unauthenticated?.call(this);
   }
@@ -198,6 +216,7 @@ class _$_AuthStateUnauthenticated implements _AuthStateUnauthenticated {
     TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
     TResult Function(_AuthStateFetching value)? fetching,
     TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -254,7 +273,8 @@ class _$_AuthStateFetching implements _AuthStateFetching {
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() fetching,
-    required TResult Function(Me token) authenticated,
+    required TResult Function(String token) authenticated,
+    required TResult Function(String token, Me me) profileFetched,
   }) {
     return fetching();
   }
@@ -264,7 +284,8 @@ class _$_AuthStateFetching implements _AuthStateFetching {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? fetching,
-    TResult Function(Me token)? authenticated,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
   }) {
     return fetching?.call();
   }
@@ -274,7 +295,8 @@ class _$_AuthStateFetching implements _AuthStateFetching {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? fetching,
-    TResult Function(Me token)? authenticated,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
     required TResult orElse(),
   }) {
     if (fetching != null) {
@@ -289,6 +311,7 @@ class _$_AuthStateFetching implements _AuthStateFetching {
     required TResult Function(_AuthStateUnauthenticated value) unauthenticated,
     required TResult Function(_AuthStateFetching value) fetching,
     required TResult Function(_AuthStateAuthenticated value) authenticated,
+    required TResult Function(_AuthStateProfileFetched value) profileFetched,
   }) {
     return fetching(this);
   }
@@ -299,6 +322,7 @@ class _$_AuthStateFetching implements _AuthStateFetching {
     TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
     TResult Function(_AuthStateFetching value)? fetching,
     TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
   }) {
     return fetching?.call(this);
   }
@@ -309,6 +333,7 @@ class _$_AuthStateFetching implements _AuthStateFetching {
     TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
     TResult Function(_AuthStateFetching value)? fetching,
     TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
     required TResult orElse(),
   }) {
     if (fetching != null) {
@@ -327,7 +352,7 @@ abstract class _$AuthStateAuthenticatedCopyWith<$Res> {
   factory _$AuthStateAuthenticatedCopyWith(_AuthStateAuthenticated value,
           $Res Function(_AuthStateAuthenticated) then) =
       __$AuthStateAuthenticatedCopyWithImpl<$Res>;
-  $Res call({Me token});
+  $Res call({String token});
 }
 
 /// @nodoc
@@ -349,7 +374,7 @@ class __$AuthStateAuthenticatedCopyWithImpl<$Res>
       token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
-              as Me,
+              as String,
     ));
   }
 }
@@ -360,7 +385,7 @@ class _$_AuthStateAuthenticated implements _AuthStateAuthenticated {
   const _$_AuthStateAuthenticated(this.token);
 
   @override
-  final Me token;
+  final String token;
 
   @override
   String toString() {
@@ -389,7 +414,8 @@ class _$_AuthStateAuthenticated implements _AuthStateAuthenticated {
   TResult when<TResult extends Object?>({
     required TResult Function() unauthenticated,
     required TResult Function() fetching,
-    required TResult Function(Me token) authenticated,
+    required TResult Function(String token) authenticated,
+    required TResult Function(String token, Me me) profileFetched,
   }) {
     return authenticated(token);
   }
@@ -399,7 +425,8 @@ class _$_AuthStateAuthenticated implements _AuthStateAuthenticated {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? fetching,
-    TResult Function(Me token)? authenticated,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
   }) {
     return authenticated?.call(token);
   }
@@ -409,7 +436,8 @@ class _$_AuthStateAuthenticated implements _AuthStateAuthenticated {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? unauthenticated,
     TResult Function()? fetching,
-    TResult Function(Me token)? authenticated,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -424,6 +452,7 @@ class _$_AuthStateAuthenticated implements _AuthStateAuthenticated {
     required TResult Function(_AuthStateUnauthenticated value) unauthenticated,
     required TResult Function(_AuthStateFetching value) fetching,
     required TResult Function(_AuthStateAuthenticated value) authenticated,
+    required TResult Function(_AuthStateProfileFetched value) profileFetched,
   }) {
     return authenticated(this);
   }
@@ -434,6 +463,7 @@ class _$_AuthStateAuthenticated implements _AuthStateAuthenticated {
     TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
     TResult Function(_AuthStateFetching value)? fetching,
     TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
   }) {
     return authenticated?.call(this);
   }
@@ -444,6 +474,7 @@ class _$_AuthStateAuthenticated implements _AuthStateAuthenticated {
     TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
     TResult Function(_AuthStateFetching value)? fetching,
     TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
@@ -454,10 +485,168 @@ class _$_AuthStateAuthenticated implements _AuthStateAuthenticated {
 }
 
 abstract class _AuthStateAuthenticated implements AuthState {
-  const factory _AuthStateAuthenticated(Me token) = _$_AuthStateAuthenticated;
+  const factory _AuthStateAuthenticated(String token) =
+      _$_AuthStateAuthenticated;
 
-  Me get token;
+  String get token;
   @JsonKey(ignore: true)
   _$AuthStateAuthenticatedCopyWith<_AuthStateAuthenticated> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$AuthStateProfileFetchedCopyWith<$Res> {
+  factory _$AuthStateProfileFetchedCopyWith(_AuthStateProfileFetched value,
+          $Res Function(_AuthStateProfileFetched) then) =
+      __$AuthStateProfileFetchedCopyWithImpl<$Res>;
+  $Res call({String token, Me me});
+}
+
+/// @nodoc
+class __$AuthStateProfileFetchedCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res>
+    implements _$AuthStateProfileFetchedCopyWith<$Res> {
+  __$AuthStateProfileFetchedCopyWithImpl(_AuthStateProfileFetched _value,
+      $Res Function(_AuthStateProfileFetched) _then)
+      : super(_value, (v) => _then(v as _AuthStateProfileFetched));
+
+  @override
+  _AuthStateProfileFetched get _value =>
+      super._value as _AuthStateProfileFetched;
+
+  @override
+  $Res call({
+    Object? token = freezed,
+    Object? me = freezed,
+  }) {
+    return _then(_AuthStateProfileFetched(
+      token == freezed
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      me == freezed
+          ? _value.me
+          : me // ignore: cast_nullable_to_non_nullable
+              as Me,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AuthStateProfileFetched implements _AuthStateProfileFetched {
+  const _$_AuthStateProfileFetched(this.token, this.me);
+
+  @override
+  final String token;
+  @override
+  final Me me;
+
+  @override
+  String toString() {
+    return 'AuthState.profileFetched(token: $token, me: $me)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _AuthStateProfileFetched &&
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.me, me) || other.me == me));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, token, me);
+
+  @JsonKey(ignore: true)
+  @override
+  _$AuthStateProfileFetchedCopyWith<_AuthStateProfileFetched> get copyWith =>
+      __$AuthStateProfileFetchedCopyWithImpl<_AuthStateProfileFetched>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unauthenticated,
+    required TResult Function() fetching,
+    required TResult Function(String token) authenticated,
+    required TResult Function(String token, Me me) profileFetched,
+  }) {
+    return profileFetched(token, me);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unauthenticated,
+    TResult Function()? fetching,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
+  }) {
+    return profileFetched?.call(token, me);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unauthenticated,
+    TResult Function()? fetching,
+    TResult Function(String token)? authenticated,
+    TResult Function(String token, Me me)? profileFetched,
+    required TResult orElse(),
+  }) {
+    if (profileFetched != null) {
+      return profileFetched(token, me);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AuthStateUnauthenticated value) unauthenticated,
+    required TResult Function(_AuthStateFetching value) fetching,
+    required TResult Function(_AuthStateAuthenticated value) authenticated,
+    required TResult Function(_AuthStateProfileFetched value) profileFetched,
+  }) {
+    return profileFetched(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
+    TResult Function(_AuthStateFetching value)? fetching,
+    TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
+  }) {
+    return profileFetched?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AuthStateUnauthenticated value)? unauthenticated,
+    TResult Function(_AuthStateFetching value)? fetching,
+    TResult Function(_AuthStateAuthenticated value)? authenticated,
+    TResult Function(_AuthStateProfileFetched value)? profileFetched,
+    required TResult orElse(),
+  }) {
+    if (profileFetched != null) {
+      return profileFetched(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AuthStateProfileFetched implements AuthState {
+  const factory _AuthStateProfileFetched(String token, Me me) =
+      _$_AuthStateProfileFetched;
+
+  String get token;
+  Me get me;
+  @JsonKey(ignore: true)
+  _$AuthStateProfileFetchedCopyWith<_AuthStateProfileFetched> get copyWith =>
       throw _privateConstructorUsedError;
 }

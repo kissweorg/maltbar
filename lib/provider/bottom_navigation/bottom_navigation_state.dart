@@ -2,9 +2,9 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:maltbar/screen/posts_view.dart';
-import 'package:maltbar/screen/profile_view.dart';
-import 'package:maltbar/screen/search_view.dart';
+import 'package:kisswe/screen/posts_view.dart';
+import 'package:kisswe/screen/profile_view.dart';
+import 'package:kisswe/screen/search_view.dart';
 
 part 'bottom_navigation_state.freezed.dart';
 
@@ -44,9 +44,8 @@ extension BottomNavigationExtension on BottomNavigation {
           title: Text("posts"),
           actions: [
             IconButton(
-              onPressed: () {
-                Beamer.of(context).beamToNamed("/create-post");
-              },
+              onPressed: () =>
+                  Beamer.of(context).beamToNamed("/main/create-post"),
               icon: Icon(Icons.add_circle),
             ),
           ],

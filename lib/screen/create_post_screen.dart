@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:maltbar/models/me.dart';
-import 'package:maltbar/provider/post/post_domain.dart';
-import 'package:maltbar/provider/providers.dart';
+import 'package:kisswe/models/me.dart';
+import 'package:kisswe/provider/post/post_domain.dart';
+import 'package:kisswe/provider/providers.dart';
 
 class CreatePostScreen extends HookConsumerWidget {
   @override
@@ -13,7 +13,7 @@ class CreatePostScreen extends HookConsumerWidget {
     final topicConrtoller = useTextEditingController(text: '');
     final contentController = useTextEditingController(text: '');
     return ref.watch(authProvider).maybeWhen(
-          authenticated: (Me me) {
+          profileFetched: (String accessToken, Me me) {
             return Scaffold(
               appBar: AppBar(
                 title: Text('Create Post'),

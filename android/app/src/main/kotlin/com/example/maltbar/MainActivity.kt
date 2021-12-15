@@ -1,4 +1,4 @@
-package com.example.maltbar
+package com.kisswe.kisswe
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:maltbar/models/me.dart';
+import 'package:kisswe/models/me.dart';
 
 part 'auth_state.freezed.dart';
 
@@ -7,5 +7,7 @@ part 'auth_state.freezed.dart';
 class AuthState with _$AuthState {
   const factory AuthState.unauthenticated() = _AuthStateUnauthenticated;
   const factory AuthState.fetching() = _AuthStateFetching;
-  const factory AuthState.authenticated(Me token) = _AuthStateAuthenticated;
+  const factory AuthState.authenticated(String token) = _AuthStateAuthenticated;
+  const factory AuthState.profileFetched(String token, Me me) =
+      _AuthStateProfileFetched;
 }
