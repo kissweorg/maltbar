@@ -12,13 +12,13 @@ import 'package:kisswe/provider/post/post_state.dart';
 import 'bottom_navigation/bottom_navigation_notifier.dart';
 import 'bottom_navigation/bottom_navigation_state.dart';
 
-final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  return AuthNotifier(read: ref.read);
-});
+final authProvider = StateNotifierProvider<AuthNotifier, AuthState>(
+    (ref) => AuthNotifier(read: ref.read));
 
 final apiClientProvider = Provider<Dio>((ref) {
   final dio = Dio(BaseOptions(
-    baseUrl: "http://localhost:8080/api",
+    // baseUrl: "http://localhost:8080/api",
+    baseUrl: "http://192.168.35.113:8080/api",
     connectTimeout: 10000,
     receiveTimeout: 10000,
   ));
@@ -77,7 +77,7 @@ final apiClientProvider = Provider<Dio>((ref) {
 final postProvider = StateNotifierProvider<PostNotifier, PostState>(
   (ref) => PostNotifier(
     read: ref.read,
-    state: PostState.fetching(),
+    state: PostState.empty(),
   ),
 );
 

@@ -17,6 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$PostStateTearOff {
   const _$PostStateTearOff();
 
+  _PostStateEmpty empty() {
+    return const _PostStateEmpty();
+  }
+
   _PostStateFetching fetching() {
     return const _PostStateFetching();
   }
@@ -49,6 +53,7 @@ const $PostState = _$PostStateTearOff();
 mixin _$PostState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() empty,
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
     required TResult Function(Post post) selected,
@@ -58,6 +63,7 @@ mixin _$PostState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -67,6 +73,7 @@ mixin _$PostState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -77,6 +84,7 @@ mixin _$PostState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_PostStateEmpty value) empty,
     required TResult Function(_PostStateFetching value) fetching,
     required TResult Function(_PostStateFetched value) fetched,
     required TResult Function(_PostStateSelected value) selected,
@@ -86,6 +94,7 @@ mixin _$PostState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -95,6 +104,7 @@ mixin _$PostState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -118,6 +128,134 @@ class _$PostStateCopyWithImpl<$Res> implements $PostStateCopyWith<$Res> {
   final PostState _value;
   // ignore: unused_field
   final $Res Function(PostState) _then;
+}
+
+/// @nodoc
+abstract class _$PostStateEmptyCopyWith<$Res> {
+  factory _$PostStateEmptyCopyWith(
+          _PostStateEmpty value, $Res Function(_PostStateEmpty) then) =
+      __$PostStateEmptyCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$PostStateEmptyCopyWithImpl<$Res> extends _$PostStateCopyWithImpl<$Res>
+    implements _$PostStateEmptyCopyWith<$Res> {
+  __$PostStateEmptyCopyWithImpl(
+      _PostStateEmpty _value, $Res Function(_PostStateEmpty) _then)
+      : super(_value, (v) => _then(v as _PostStateEmpty));
+
+  @override
+  _PostStateEmpty get _value => super._value as _PostStateEmpty;
+}
+
+/// @nodoc
+
+class _$_PostStateEmpty implements _PostStateEmpty {
+  const _$_PostStateEmpty();
+
+  @override
+  String toString() {
+    return 'PostState.empty()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _PostStateEmpty);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() empty,
+    required TResult Function() fetching,
+    required TResult Function(List<Post> posts) fetched,
+    required TResult Function(Post post) selected,
+    required TResult Function() refreshed,
+    required TResult Function() error,
+  }) {
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function()? fetching,
+    TResult Function(List<Post> posts)? fetched,
+    TResult Function(Post post)? selected,
+    TResult Function()? refreshed,
+    TResult Function()? error,
+  }) {
+    return empty?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
+    TResult Function()? fetching,
+    TResult Function(List<Post> posts)? fetched,
+    TResult Function(Post post)? selected,
+    TResult Function()? refreshed,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_PostStateEmpty value) empty,
+    required TResult Function(_PostStateFetching value) fetching,
+    required TResult Function(_PostStateFetched value) fetched,
+    required TResult Function(_PostStateSelected value) selected,
+    required TResult Function(_PostStateRefreshed value) refreshed,
+    required TResult Function(_PostStateError value) error,
+  }) {
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
+    TResult Function(_PostStateFetching value)? fetching,
+    TResult Function(_PostStateFetched value)? fetched,
+    TResult Function(_PostStateSelected value)? selected,
+    TResult Function(_PostStateRefreshed value)? refreshed,
+    TResult Function(_PostStateError value)? error,
+  }) {
+    return empty?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
+    TResult Function(_PostStateFetching value)? fetching,
+    TResult Function(_PostStateFetched value)? fetched,
+    TResult Function(_PostStateSelected value)? selected,
+    TResult Function(_PostStateRefreshed value)? refreshed,
+    TResult Function(_PostStateError value)? error,
+    required TResult orElse(),
+  }) {
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PostStateEmpty implements PostState {
+  const factory _PostStateEmpty() = _$_PostStateEmpty;
 }
 
 /// @nodoc
@@ -161,6 +299,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() empty,
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
     required TResult Function(Post post) selected,
@@ -173,6 +312,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -185,6 +325,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -201,6 +342,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_PostStateEmpty value) empty,
     required TResult Function(_PostStateFetching value) fetching,
     required TResult Function(_PostStateFetched value) fetched,
     required TResult Function(_PostStateSelected value) selected,
@@ -213,6 +355,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -225,6 +368,7 @@ class _$_PostStateFetching implements _PostStateFetching {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -308,6 +452,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() empty,
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
     required TResult Function(Post post) selected,
@@ -320,6 +465,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -332,6 +478,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -348,6 +495,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_PostStateEmpty value) empty,
     required TResult Function(_PostStateFetching value) fetching,
     required TResult Function(_PostStateFetched value) fetched,
     required TResult Function(_PostStateSelected value) selected,
@@ -360,6 +508,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -372,6 +521,7 @@ class _$_PostStateFetched implements _PostStateFetched {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -459,6 +609,7 @@ class _$_PostStateSelected implements _PostStateSelected {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() empty,
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
     required TResult Function(Post post) selected,
@@ -471,6 +622,7 @@ class _$_PostStateSelected implements _PostStateSelected {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -483,6 +635,7 @@ class _$_PostStateSelected implements _PostStateSelected {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -499,6 +652,7 @@ class _$_PostStateSelected implements _PostStateSelected {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_PostStateEmpty value) empty,
     required TResult Function(_PostStateFetching value) fetching,
     required TResult Function(_PostStateFetched value) fetched,
     required TResult Function(_PostStateSelected value) selected,
@@ -511,6 +665,7 @@ class _$_PostStateSelected implements _PostStateSelected {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -523,6 +678,7 @@ class _$_PostStateSelected implements _PostStateSelected {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -587,6 +743,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() empty,
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
     required TResult Function(Post post) selected,
@@ -599,6 +756,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -611,6 +769,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -627,6 +786,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_PostStateEmpty value) empty,
     required TResult Function(_PostStateFetching value) fetching,
     required TResult Function(_PostStateFetched value) fetched,
     required TResult Function(_PostStateSelected value) selected,
@@ -639,6 +799,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -651,6 +812,7 @@ class _$_PostStateRefreshed implements _PostStateRefreshed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -709,6 +871,7 @@ class _$_PostStateError implements _PostStateError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() empty,
     required TResult Function() fetching,
     required TResult Function(List<Post> posts) fetched,
     required TResult Function(Post post) selected,
@@ -721,6 +884,7 @@ class _$_PostStateError implements _PostStateError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -733,6 +897,7 @@ class _$_PostStateError implements _PostStateError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? empty,
     TResult Function()? fetching,
     TResult Function(List<Post> posts)? fetched,
     TResult Function(Post post)? selected,
@@ -749,6 +914,7 @@ class _$_PostStateError implements _PostStateError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_PostStateEmpty value) empty,
     required TResult Function(_PostStateFetching value) fetching,
     required TResult Function(_PostStateFetched value) fetched,
     required TResult Function(_PostStateSelected value) selected,
@@ -761,6 +927,7 @@ class _$_PostStateError implements _PostStateError {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,
@@ -773,6 +940,7 @@ class _$_PostStateError implements _PostStateError {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_PostStateEmpty value)? empty,
     TResult Function(_PostStateFetching value)? fetching,
     TResult Function(_PostStateFetched value)? fetched,
     TResult Function(_PostStateSelected value)? selected,

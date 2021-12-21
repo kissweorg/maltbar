@@ -1,3 +1,4 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kisswe/provider/bottom_navigation/bottom_navigation_state.dart';
@@ -12,11 +13,25 @@ class _MainScreenState extends ConsumerState {
   @override
   void initState() {
     super.initState();
+    print("Init state main screen");
   }
 
   @override
   Widget build(BuildContext context) {
     return ref.watch(authProvider).maybeWhen(
+          fetching: () {
+            return Scaffold(
+              body: Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+            );
+          },
+          unauthenticated: () {
+            print("hello");
+            Future.microtask(
+                () => Beamer.of(context).beamToReplacementNamed("/auth"));
+            return Container();
+          },
           authenticated: (me) => Scaffold(
             appBar: ref.watch(bottomNavigationProvider).when(
                   switching: (from, to) => from.appBar(context),
@@ -47,13 +62,6 @@ class _MainScreenState extends ConsumerState {
             return Scaffold(
               body: Center(
                 child: Text("Authentication required"),
-              ),
-            );
-          },
-          fetching: () {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator.adaptive(),
               ),
             );
           },

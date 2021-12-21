@@ -13,7 +13,11 @@ class _PostsState extends ConsumerState<PostsView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      ref.read(postProvider.notifier).fetchPosts();
+      ref.read(postProvider).maybeWhen(
+          empty: () {
+            ref.read(postProvider.notifier).fetchPosts();
+          },
+          orElse: () {});
     });
   }
 
@@ -35,7 +39,7 @@ class _PostsState extends ConsumerState<PostsView> {
                     trailing: IconButton(
                       icon: Icon(Icons.star_outline),
                       onPressed: () {
-                        print(post.toJson());
+                        ref.read(postProvider.notifier).markPostFavorite(post);
                       },
                     ),
                   ),

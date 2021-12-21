@@ -9,7 +9,8 @@ import 'package:kisswe/provider/auth/auth_state.dart';
 class AuthNotifier extends StateNotifier<AuthState> {
   final Reader read;
   final Dio _authClient = Dio(BaseOptions(
-    baseUrl: "http://localhost:8080/api/v1/auth",
+    // baseUrl: "http://localhost:8080/api/v1/auth",
+    baseUrl: "http://192.168.35.113:8080/api/v1/auth",
     connectTimeout: 10000,
     receiveTimeout: 10000,
   ))
@@ -44,6 +45,18 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       final response = await _authClient.get("/refresh");
       state = AuthState.authenticated(Me.fromJson(response.data));
+    } catch (e) {
+      state = AuthState.unauthenticated();
+    }
+  }
+
+  Future<void> signOut() async {
+    state = AuthState.fetching();
+    try {
+      await _authClient.post(
+        "/sign-out",
+      );
+      state = AuthState.unauthenticated();
     } catch (e) {
       state = AuthState.unauthenticated();
     }

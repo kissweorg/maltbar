@@ -12,13 +12,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    ref.read(authProvider.notifier).refreshToken();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      ref.watch(authProvider).maybeWhen(
+    Future.microtask(() async {
+      await ref.read(authProvider.notifier).refreshToken();
+      ref.read(authProvider).maybeWhen(
             authenticated: (me) =>
                 Beamer.of(context).beamToReplacementNamed("/main"),
             unauthenticated: () =>
@@ -26,6 +22,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             orElse: () {},
           );
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFF7F50),
       body: Container(

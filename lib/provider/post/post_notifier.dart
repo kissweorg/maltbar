@@ -28,9 +28,14 @@ class PostNotifier extends StateNotifier<PostState> {
     try {
       await read(apiClientProvider)
           .post("/v1/posts", data: createPostDto.toJson());
+      await fetchPosts();
     } catch (e) {
       print(e);
       state = PostState.error();
     }
+  }
+
+  Future<void> markPostFavorite(Post post) async {
+    await read(apiClientProvider).post("/v1/posts/${post.id}/favorite");
   }
 }

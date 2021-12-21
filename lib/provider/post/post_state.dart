@@ -5,6 +5,7 @@ part 'post_state.freezed.dart';
 
 @freezed
 class PostState with _$PostState {
+  const factory PostState.empty() = _PostStateEmpty;
   const factory PostState.fetching() = _PostStateFetching;
   const factory PostState.fetched(List<Post> posts) = _PostStateFetched;
   const factory PostState.selected(Post post) = _PostStateSelected;

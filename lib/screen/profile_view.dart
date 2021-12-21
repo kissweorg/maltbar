@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kisswe/provider/providers.dart';
 
 class ProfileView extends ConsumerWidget {
   @override
@@ -30,7 +31,10 @@ class ProfileView extends ConsumerWidget {
             children: [
               ListTile(title: Text("General")),
               ListTile(title: Text("General - Hello")),
-              ListTile(title: Text("General - Bye")),
+              ListTile(
+                title: Text("General - Logout"),
+                onTap: () => ref.read(authProvider.notifier).signOut(),
+              ),
             ],
           ),
         ),
